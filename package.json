@@ -1,0 +1,27 @@
+{
+  "name": "12-express-middleware",
+  "version": "1.0.0",
+  "description": "![cf](https://i.imgur.com/7v5ASc8.png) 12: Express Middleware ======",
+  "main": "index.js",
+  "scripts": {
+    "test": "--jest --verbose --coverage",
+    "test-watch": "--jest --watchAll --verbose --coverage",
+    "eslint": "eslint **/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbach197/12-express-middleware.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jbach197/12-express-middleware/issues"
+  },
+  "homepage": "https://github.com/jbach197/12-express-middleware#readme",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
+    "jest": "^23.0.1"
+  }
+}

@@ -1,11 +1,13 @@
 'use strict';
 
 import express from 'express';
+import errorHandler from './middleare/error.js';
 let app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+app.use(errorHandler);
 
 import router from './api/api.js';
 app.use( router );

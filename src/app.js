@@ -1,16 +1,26 @@
 'use strict';
 
 import express from 'express';
-import errorHandler from './middleare/error.js';
+import morgan from 'morgan'; //eslint-disable-line
+import cors from 'cors'; //eslint-disable-line
+
+import errorHandler from './middleware/error.js'; //eslint-disable-line
+import notFound from './middleware/404.js'; //eslint-disable-line
+
 let app = express();
 
+let corsOptions = { //eslint-disable-line
+  origin: 'http://example.com',
+};
+
+app.use(cors(corsOptions));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use(errorHandler);
-
 import router from './api/api.js';
 app.use( router );
+app.use(notFound);
 
 let running = false;
 

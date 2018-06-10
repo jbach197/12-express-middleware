@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 require('babel-register');
 
-require('./server.js');
+require('./server.js').start(process.env.PORT);

@@ -1,6 +1,5 @@
 'use strict';
 
-
 import storage from '../lib/storage/data-store.js';
 import uuid from 'uuid/v1';
 
@@ -17,7 +16,6 @@ class Note{
     return storage.save(this);
   }
 
-
   static fetchAll() {
     return storage.getAll();
   }
@@ -26,7 +24,7 @@ class Note{
     return storage.get(id);
   }
 
-  static updateOne(criteria) {
+  static updateOne(criteria) { //eslint-disable-line
     return storage.update(this);
   }
 

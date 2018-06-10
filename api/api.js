@@ -3,33 +3,28 @@
 import express from 'express';
 const router = express.Router();
 
-import requireAll from 'require-dir';
-const models = requireAll('../models');
-
 import modelFinder from '../middleware/models.js';
-
-let sendJSON = (res,data) => {
-  res.statusCode = 200;
-  res.statusMessage = 'OK';
-  res.setHeader('Content-Type', 'application/json');
-  res.write( JSON.stringify(data) );
-  res.end();
-};
+router.param('model', modelFinder);
 
 router.get('/api/v1/:model', modelFinder, (req,res) => {
   req.model.fetchAll()
     .then( data => sendJSON(res,data) )
-    .catch(err => {throw err});
+    .catch(err => {throw err;});
 });
 
-router.get('/api/v1/:model/:id', modelFinder, (req,res) => {
+router.get('/api/v1/:model/:id', (req,res) => {
+  req.model.findOne(req.params.id)
+    .then( data => { sendJSON(res,data);} )
+    .catch(err => { throw err; });
+});
+
+router.delete('/api/v1/:model/:id', (req,res) => {
   if ( req.params.id ) {
-    req.model.findOne(req.params.id)
-      .then(data => sendJSON(res, data))
-      .catch(err => {throw err});
+    let result = {action:'delete',id:req.params.id};
+    sendJSON(res,result);
   }
   else {
-    throw 'record not found';
+    throw 'Record Not Found';
   }
 
 });
@@ -39,9 +34,15 @@ router.post('/api/v1/:model', modelFinder, (req,res) => {
   record.save()
     .then(data => sendJSON(res,data))
     .catch(console.error);
-
 });
 
+let sendJSON = (res,data) => {
+  res.statusCode = 200;
+  res.statusMessage = 'OK';
+  res.setHeader('Content-Type', 'application/json');
+  res.write( JSON.stringify(data) );
+  res.end();
+};
 
 export default router;
 
